@@ -1,0 +1,72 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fontspec}
+\usepackage[catalan]{babel}
+\usepackage{pseudocode}
+\usepackage{algorithmicx}
+
+\title{Entrega 1 \\ \textsc{Ampliació d'Algorísmia}}
+\author{Marc Asenjo \and Arnau Canyadell \and Joan Marcè}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Problema 14: Geography game}
+
+\begin{algorithmic}
+\Function{GEOGRAPHY}{G}
+	\State $V := vector<bool> (G.size(), false)$
+	\ForAll ($v \in G$)
+	\State $V[v] := cert$
+	\If GEOGRAPHY_REC(G,v,1,V)
+		\Return true
+	\EndIf
+	\State V[v] := false
+	\Return false
+\EndFunction
+	
+\Comment{Retorna "L és un camí guanyador"}
+\Comment{G és un graf implementat com un vector de llistes}
+\Comment{v és l'últim vèrtex visitat (jugat per l'últim jugador)}
+\Comment{n és el número de jugades fetes (si és parell jugo jo; si és senar juga l'adversari)}
+\Comment{V és un vector de visitats}
+\Function{GEOGRAPHY\_REC}{G,v,n,V}
+	\ForAll ($w \in V[v]$) {
+		\If ($\not V[w]$)
+			\State V[w] := cert
+			\State b := GEOGRAPHY_REC(G,v,n+1,V)
+			\State V[w] := fals
+			\Comment{Si jugo jo i he trobat una jugada guanyadora, sé que puc guanyar}
+			\Comment{Si juga l'altre i ha trobat una jugada no guanyadora, és que pot trobar una manera de guanyar}
+			\If ($n\%2 == 0 \and b || n\%2 == 1 \and \not b$)
+				\Return b
+			\EndIf
+		\EndIf
+	\EndFor
+
+	\Comment{Si jugo jo i no he trobat cap jugada guanyadora, no puc guanyar}
+	\Comment{Si juga ell i no ha trobat cap jugada guanyadora, no em pot guanyar}
+	\Return $n\%2 == 1$
+\EndFunction
+\end{algorithmic}
+
+\section{Problema 15: Geography game with repeat visits}
+Suppose we play geography without the restriction that we can only visit each vertex once. However, the graph is still directed, and you lose if you find yourself at a vertex with no outgoing edges. Show that the problem of telling whether the first player has a winning strategy in this case is in P. (Notice that if a node is reached after a number of turns greater than n − 1, then, for sure there is a draw).
+
+A diferència de l’algoritme original de Geography, en aquest cas l'única manera de que trobem un "dead end'' és que aquest ja existeixi des del principi, ja que no eliminem els vèrtex visitats. A més, si  trobem un vèrtex sense arestes sortints, aquell node és una "winning position'', ja que si el primer jugador comença allà, automàticament guanya. Per tant, només cal buscar si existeix un "dead end'' i així sabrem si existeix alguna winning strategy. A continuació es proposa un pseudo-codi d’un algoritme per resoldre el problema en temps polinòmic:
+
+\begin{algorithmic}
+	\State $L = $ llista de llistes amb arestes sortints de cada node
+	\ForAll{$E \in L$}
+		\If{$E.size() == 0$}
+			\Return True
+		\EndIf
+	\EndFor
+	\Return False
+\end{algorithmic}
+
+Com es pot observar, aquest algoritme simple té per cost $O(n)$, ja que només ha de comprovar si hi ha arestes sortints de cada un dels nodes. Si no tinguéssim la llista $L$ en un principi, la transformació a ella també seria polinòmica, mantenint el cost de l’algoritme polinòmic.
+
+
+\end{document}
