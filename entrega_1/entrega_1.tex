@@ -1,9 +1,13 @@
 \documentclass[a4paper]{article}
+\usepackage[margin=2cm]{geometry}
 
 \usepackage{fontspec}
 \usepackage[catalan]{babel}
-\usepackage{pseudocode}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \usepackage{algorithmicx}
+\usepackage{amsmath}
+\usepackage{float}
 
 \title{Entrega 1 \\ \textsc{Ampliació d'Algorísmia}}
 \author{Marc Asenjo \and Arnau Canyadell \and Joan Marcè}
@@ -19,12 +23,13 @@ One way to pass the time during long journey is to play the word game
 of Geography. The first player names a place, say Barcelona. The second player replies
 with a place whose name starts with the same letter the previous place ended with, such as
 Athens. The first player could then respond with Sicily, and so on. Each place can only be
-named once, and the rst player who cannot make a move loses.
+named once, and the first player who cannot make a move loses.
+
 We can make a mathematical version of this game. We have a directed graph $G = (V;E)$ ,
 and a designated start node $s \in V$ . The nodes represent the places and the directed edges
 represent the legal moves. We start at $s$, and you and I take turns deciding which step to
 do next. Whoever ends up in a dead end, where every outgoing edge points to a vertex we
-have already visited, loses. A position or node v is a winning position for the rst player if
+have already visited, loses. A position or node $v$ is a winning position for the first player if
 whatever legal move the second player selects, the first player never ends up in a dead end.
 geography
 
@@ -38,42 +43,53 @@ problem).
 
 La següent implementació de GEOGRAPHY resol el problema utilitzant una representació del graf G de mida O(|V|+|E|) i un vector de mida O(|V|). És lineal en espai i per tant pertany a PSPACE.
 
-\begin{algorithmic}
-\Function{GEOGRAPHY}{G}
-	\State $V := vector<bool> (G.size(), false)$
-	\ForAll ($v \in G$)
-	\State $V[v] := cert$
-	\If GEOGRAPHY_REC(G,v,1,V)
-		\Return true
-	\EndIf
-	\State V[v] := false
-	\Return false
-\EndFunction
-	
-\Comment{Retorna "L és un camí guanyador"}
-\Comment{G és un graf implementat com un vector de llistes}
-\Comment{v és l'últim vèrtex visitat (jugat per l'últim jugador)}
-\Comment{n és el número de jugades fetes (si és parell jugo jo; si és senar juga l'adversari)}
-\Comment{V és un vector de visitats}
-\Function{GEOGRAPHY\_REC}{G,v,n,V}
-	\ForAll ($w \in V[v]$) {
-		\If ($\not V[w]$)
-			\State V[w] := cert
-			\State b := GEOGRAPHY_REC(G,v,n+1,V)
-			\State V[w] := fals
-			\Comment{Si jugo jo i he trobat una jugada guanyadora, sé que puc guanyar}
-			\Comment{Si juga l'altre i ha trobat una jugada no guanyadora, és que pot trobar una manera de guanyar}
-			\If ($n\%2 == 0 \and b || n\%2 == 1 \and \not b$)
-				\Return b
-			\EndIf
-		\EndIf
-	\EndFor
+\begin{algorithm}[H]
+	\caption{Algoritme per calcular la solució de \textsc{geography}}
+	\begin{algorithmic}[1]
+		\State // Retorna "$L$ és un camí guanyador"
+		\State // G és un graf implementat com un vector de llistes
+		\State // v és l'últim vèrtex visitat (jugat per l'últim jugador)
+		\State // n és el número de jugades fetes (si és parell jugo jo; si és senar juga l'adversari)
+		\State // V és un vector de visitats
+		\Function{GEOGRAPHY\_REC}{$G,v,n,V$}
+			\ForAll{$w \in V[v]$}
+				\If{$\text{\texttt{not }} V[w]$}
+					\State $V[w] \gets$ \texttt{true}
+					\State $b \gets$ \Call{GEOGRAPHY\_REC}{$G,v,n+1,V$}
+					\State $V[w] \gets$ \texttt{false}
+					\State
+					\State // Si jugo jo i he trobat una jugada guanyadora, sé que puc guanyar
+					\State // Si juga l'altre i ha trobat una jugada no guanyadora, és que pot trobar una manera de guanyar
+					\If{$n\%2 == 0 \text{\texttt{ \&\& }} b \text{\texttt{ || }} n\%2 == 1 \text{\texttt{ \&\& }} \text{\texttt{not 	}} b$}
+						\State \Return b
+					\EndIf
+				\EndIf
+			\EndFor
+			
+			\State // Si jugo jo i no he trobat cap jugada guanyadora, no puc guanyar
+			\State // Si juga ell i no ha trobat cap jugada guanyadora, no em pot guanyar
+			\State \Return $n\%2 == 1$
+		\EndFunction
+		\algstore{geo1}
+	\end{algorithmic}
+\end{algorithm}
 
-	\Comment{Si jugo jo i no he trobat cap jugada guanyadora, no puc guanyar}
-	\Comment{Si juga ell i no ha trobat cap jugada guanyadora, no em pot guanyar}
-	\Return $n\%2 == 1$
-\EndFunction
-\end{algorithmic}
+\begin{algorithm}[!h]
+	\begin{algorithmic}[1]
+		\algrestore{geo1}
+		\Function{GEOGRAPHY}{G}
+			\State $V \gets$  \texttt{vector<bool> (G.size(), false)}
+			\ForAll{$v \in G$}
+				\State $V[v] \gets$ \texttt{true}
+				\If{\Call{GEOGRAPHY\_REC}{$G,v,1,V$}}
+					\State \Return \texttt{true}
+				\EndIf
+				\State $V[v] \gets$ \texttt{false}
+			\EndFor
+			\State \Return \texttt{false}
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
 
 \section{Problema 15: Geography game with repeat visits}
 Suppose we play geography without the restriction that we can only visit each vertex once. However, the graph is still directed, and you lose if you find yourself at a vertex with no outgoing edges. Show that the problem of telling whether the first player has a winning strategy in this case is in P. (Notice that if a node is reached after a number of turns greater than n − 1, then, for sure there is a draw).
