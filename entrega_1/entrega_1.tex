@@ -14,6 +14,30 @@
 
 \section{Problema 14: Geography game}
 
+
+One way to pass the time during long journey is to play the word game
+of Geography. The first player names a place, say Barcelona. The second player replies
+with a place whose name starts with the same letter the previous place ended with, such as
+Athens. The first player could then respond with Sicily, and so on. Each place can only be
+named once, and the rst player who cannot make a move loses.
+We can make a mathematical version of this game. We have a directed graph $G = (V;E)$ ,
+and a designated start node $s \in V$ . The nodes represent the places and the directed edges
+represent the legal moves. We start at $s$, and you and I take turns deciding which step to
+do next. Whoever ends up in a dead end, where every outgoing edge points to a vertex we
+have already visited, loses. A position or node v is a winning position for the rst player if
+whatever legal move the second player selects, the first player never ends up in a dead end.
+geography
+
+\begin{itemize}
+	\item Input: An directed graph $G = (V, E)$ and a start node $s$.
+	\item Question: Is $v$ a winning position for the first player? (The first player can force a win)
+\end{itemize}
+
+Show that \textsc{geography} is in \texttt{PSPACE}. (In fact \textsc{geography} is a well known \texttt{PSPACE-complete}
+problem).
+
+La següent implementació de GEOGRAPHY resol el problema utilitzant una representació del graf G de mida O(|V|+|E|) i un vector de mida O(|V|). És lineal en espai i per tant pertany a PSPACE.
+
 \begin{algorithmic}
 \Function{GEOGRAPHY}{G}
 	\State $V := vector<bool> (G.size(), false)$
