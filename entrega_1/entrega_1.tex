@@ -50,12 +50,12 @@ La següent implementació de GEOGRAPHY resol el problema utilitzant una represe
 	\caption{Algoritme per calcular la solució de \textsc{geography}}
 	\begin{algorithmic}[1]
 		\State // Retorna "$L$ és un camí guanyador"
-		\State // G és un graf implementat com un vector de llistes
-		\State // v és l'últim vèrtex visitat (jugat per l'últim jugador)
-		\State // n és el número de jugades fetes (si és parell jugo jo; si és senar juga l'adversari)
+		\State // $G$ és un graf implementat com un vector de llistes
+		\State // $v$ és l'índex de l'últim vèrtex visitat (jugat per l'últim jugador)
+		\State // $n$ és el número de jugades fetes (si és parell jugo jo; si és senar juga l'adversari)
 		\State // V és un vector de visitats
 		\Function{GEOGRAPHY\_REC}{$G,v,n,V$}
-			\ForAll{$w \in V[v]$}
+			\ForAll{$w \in G[v]$}
 				\If{$\text{\texttt{not }} V[w]$}
 					\State $V[w] \gets$ \texttt{true}
 					\State $b \gets$ \Call{GEOGRAPHY\_REC}{$G,v,n+1,V$}
@@ -63,7 +63,7 @@ La següent implementació de GEOGRAPHY resol el problema utilitzant una represe
 					\State
 					\State // Si jugo jo i he trobat una jugada guanyadora, sé que puc guanyar
 					\State // Si juga l'altre i ha trobat una jugada no guanyadora, és que pot trobar una manera de guanyar
-					\If{$n\%2 == 0 \text{\texttt{ \&\& }} b \text{\texttt{ || }} n\%2 == 1 \text{\texttt{ \&\& }} \text{\texttt{not 	}} b$}
+					\If{$n\%2 == 0 \text{\texttt{ \&\& }} b \text{\texttt{ || }} n\%2 == 1 \text{\texttt{ \&\& }} \text{\texttt{not }} b$}
 						\State \Return b
 					\EndIf
 				\EndIf
@@ -82,9 +82,9 @@ La següent implementació de GEOGRAPHY resol el problema utilitzant una represe
 		\algrestore{geo1}
 		\Function{GEOGRAPHY}{G}
 			\State $V \gets$  \texttt{vector<bool> (G.size(), false)}
-			\ForAll{$v \in G$}
+			\ForAll{$v \in \{0, ..., n - 1 \}$}
 				\State $V[v] \gets$ \texttt{true}
-				\If{\Call{GEOGRAPHY\_REC}{$G,v,1,V$}}
+				\If{\Call{GEOGRAPHY\_REC}{$G,i,1,V$}}
 					\State \Return \texttt{true}
 				\EndIf
 				\State $V[v] \gets$ \texttt{false}
