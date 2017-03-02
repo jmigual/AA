@@ -9,6 +9,9 @@
 \usepackage{amsmath}
 \usepackage{float}
 
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
 \title{Entrega 1 \\ \textsc{Ampliació d'Algorísmia}}
 \author{Marc Asenjo \and Arnau Canyadell \and Joan Marcè}
 \date{}
@@ -19,27 +22,27 @@
 \section{Problema 14: Geography game}
 
 
-One way to pass the time during long journey is to play the word game
+\emph{One way to pass the time during long journey is to play the word game
 of Geography. The first player names a place, say Barcelona. The second player replies
 with a place whose name starts with the same letter the previous place ended with, such as
 Athens. The first player could then respond with Sicily, and so on. Each place can only be
-named once, and the first player who cannot make a move loses.
+named once, and the first player who cannot make a move loses.}
 
-We can make a mathematical version of this game. We have a directed graph $G = (V;E)$ ,
+\emph{We can make a mathematical version of this game. We have a directed graph $G = (V;E)$ ,
 and a designated start node $s \in V$ . The nodes represent the places and the directed edges
 represent the legal moves. We start at $s$, and you and I take turns deciding which step to
 do next. Whoever ends up in a dead end, where every outgoing edge points to a vertex we
 have already visited, loses. A position or node $v$ is a winning position for the first player if
 whatever legal move the second player selects, the first player never ends up in a dead end.
-geography
+geography.}
 
 \begin{itemize}
-	\item Input: An directed graph $G = (V, E)$ and a start node $s$.
-	\item Question: Is $v$ a winning position for the first player? (The first player can force a win)
+	\item \emph{Input: An directed graph $G = (V, E)$ and a start node $s$.}
+	\item \emph{Question: Is $v$ a winning position for the first player? (The first player can force a win)}
 \end{itemize}
 
-Show that \textsc{geography} is in \texttt{PSPACE}. (In fact \textsc{geography} is a well known \texttt{PSPACE-complete}
-problem).
+\emph{Show that \textsc{geography} is in \texttt{PSPACE}. (In fact \textsc{geography} is a well known \texttt{PSPACE-complete}
+problem).}
 
 La següent implementació de GEOGRAPHY resol el problema utilitzant una representació del graf G de mida O(|V|+|E|) i un vector de mida O(|V|). És lineal en espai i per tant pertany a PSPACE.
 
@@ -92,20 +95,22 @@ La següent implementació de GEOGRAPHY resol el problema utilitzant una represe
 \end{algorithm}
 
 \section{Problema 15: Geography game with repeat visits}
-Suppose we play geography without the restriction that we can only visit each vertex once. However, the graph is still directed, and you lose if you find yourself at a vertex with no outgoing edges. Show that the problem of telling whether the first player has a winning strategy in this case is in P. (Notice that if a node is reached after a number of turns greater than n − 1, then, for sure there is a draw).
+\emph{Suppose we play geography without the restriction that we can only visit each vertex once. However, the graph is still directed, and you lose if you find yourself at a vertex with no outgoing edges. Show that the problem of telling whether the first player has a winning strategy in this case is in P. (Notice that if a node is reached after a number of turns greater than $n − 1$, then, for sure there is a draw).}
 
-A diferència de l’algoritme original de Geography, en aquest cas l'única manera de que trobem un "dead end'' és que aquest ja existeixi des del principi, ja que no eliminem els vèrtex visitats. A més, si  trobem un vèrtex sense arestes sortints, aquell node és una "winning position'', ja que si el primer jugador comença allà, automàticament guanya. Per tant, només cal buscar si existeix un "dead end'' i així sabrem si existeix alguna winning strategy. A continuació es proposa un pseudo-codi d’un algoritme per resoldre el problema en temps polinòmic:
+A diferència de l’algoritme original de \textsc{geography}, en aquest cas l'única manera de que trobem un \emph{dead end} és que aquest ja existeixi des del principi, ja que no eliminem els vèrtex visitats. A més, si  trobem un vèrtex sense arestes sortints, aquell node és una \emph{winning position}, ja que si el primer jugador comença allà, automàticament guanya. Per tant, només cal buscar si existeix un \emph{dead end} i així sabrem si existeix alguna \emph{winning strategy}. A continuació es proposa un pseudo-codi d'un algoritme per resoldre el problema en temps polinòmic:
 
-\begin{algorithmic}
-	\State $L = $ llista de llistes amb arestes sortints de cada node
-	\ForAll{$E \in L$}
-		\If{$E.size() == 0$}
-			\Return True
-		\EndIf
-	\EndFor
-	\Return False
-\end{algorithmic}
-
+\begin{algorithm}
+	\caption{Algoritme per calcular la solució de \texttt{geography} amb arestes repetides}
+	\begin{algorithmic}[1]
+		\State $L \gets $ llista de llistes amb arestes sortints de cada node
+		\ForAll{$E \in L$}
+			\If{$E$\texttt{.size()} $== 0$}
+				\State \Return \texttt{true}
+			\EndIf
+		\EndFor
+		\State \Return \texttt{false}
+	\end{algorithmic}
+\end{algorithm}
 Com es pot observar, aquest algoritme simple té per cost $O(n)$, ja que només ha de comprovar si hi ha arestes sortints de cada un dels nodes. Si no tinguéssim la llista $L$ en un principi, la transformació a ella també seria polinòmica, mantenint el cost de l’algoritme polinòmic.
 
 
