@@ -80,16 +80,10 @@ La següent implementació de GEOGRAPHY resol el problema utilitzant una represe
 \begin{algorithm}[!h]
 	\begin{algorithmic}[1]
 		\algrestore{geo1}
-		\Function{GEOGRAPHY}{G}
+		\Function{GEOGRAPHY}{$G,s$}
 			\State $V \gets$  \texttt{vector<bool> (G.size(), false)}
-			\ForAll{$v \in \{0, ..., n - 1 \}$}
-				\State $V[v] \gets$ \texttt{true}
-				\If{\Call{GEOGRAPHY\_REC}{$G,i,1,V$}}
-					\State \Return \texttt{true}
-				\EndIf
-				\State $V[v] \gets$ \texttt{false}
-			\EndFor
-			\State \Return \texttt{false}
+			\State $V[s] \gets$ \texttt{true}
+			\State \Return \Call{GEOGRAPHY\_REC}{$G,s,1,V$}
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
