@@ -60,17 +60,19 @@ El següent algoritme resol el problema GEOGRAPHY. Les variables que utilitza s�
 \section{Problema 15: Geography game with repeat visits}
 \emph{Suppose we play geography without the restriction that we can only visit each vertex once. However, the graph is still directed, and you lose if you find yourself at a vertex with no outgoing edges. Show that the problem of telling whether the first player has a winning strategy in this case is in P. (Notice that if a node is reached after a number of turns greater than $n − 1$, then, for sure there is a draw).}
 
-A diferència de l’algoritme original de \textsc{geography}, en aquest cas l'única manera de que trobem un \emph{dead end} és que aquest ja existeixi des del principi, ja que no eliminem els vèrtex visitats. A més, si  trobem un vèrtex sense arestes sortints, aquell node és una \emph{winning position}, ja que si el primer jugador comença allà, automàticament guanya. Per tant, només cal buscar si existeix un \emph{dead end} i així sabrem si existeix alguna \emph{winning strategy}. A continuació es proposa un pseudo-codi d'un algoritme per resoldre el problema en temps polinòmic:
+El següent algorisme és semblant a la del problema 14 però amb algunes diferències. Primer de tot, si es troba un cicle llavors hi ha la possibilitat d'empat. El fet que hi puguin haver empats també canvia la definició recursiva, ja que s'ha d tenir en compte que un jugador intentarà guanyar, i si no pot, intentarà empatar.
+
+Noti's que la crida inicial de l'algorisme seria amb $n=1$.
 
 \begin{algorithm}[H]
 	\caption{Algoritme per calcular la solució de \textsc{geography\_repeat}}
 	\begin{algorithmic}[1]
 		\Function{GEOGRAPHY\_REPEAT}{$G = (V, E), v, n$}
-			\If{$n - 1 \ge |V|$}
+			\If{$n \g |V| - 1$}
 				\State \Return \texttt{"es\_empat"}
-			\ElsIf{$\exists w | (v,w) \in E \ $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_guanyador"}}
+			\ElsIf{$\exists w | (v,w) \in E \ : $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_guanyador"}}
 				\State \Return \texttt{"es\_perdedor"}
-			\ElsIf{$\exists w| (v, w) \in E \ $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_empat"}}
+			\ElsIf{$\exists w| (v, w) \in E \ : $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_empat"}}
 				\State \Return \texttt{"es\_empat"}
 			\Else
 				\State \Return \texttt{"es\_guanyador"}
@@ -79,7 +81,6 @@ A diferència de l’algoritme original de \textsc{geography}, en aquest cas l'�
 	\end{algorithmic}
 \end{algorithm}
 
-Com es pot observar, aquest algoritme simple té per cost $O(n)$, ja que només ha de comprovar si hi ha arestes sortints de cada un dels nodes. Si no tinguéssim la llista $L$ en un principi, la transformació a ella també seria polinòmica, mantenint el cost de l’algoritme polinòmic.
-
+Com que el graf no canvia, l'algorisme es podria implementar utilitzant programació dinàmica, guardant-nos el resultat per a cada node del graf. Per tant com a màxim es faran $|V|$ crides a l'algorisme i en conseqüència el problema pertany a $P$.
 
 \end{document}
