@@ -63,14 +63,14 @@ La següent implementació de GEOGRAPHY resol el problema utilitzant una represe
 A diferència de l’algoritme original de \textsc{geography}, en aquest cas l'única manera de que trobem un \emph{dead end} és que aquest ja existeixi des del principi, ja que no eliminem els vèrtex visitats. A més, si  trobem un vèrtex sense arestes sortints, aquell node és una \emph{winning position}, ja que si el primer jugador comença allà, automàticament guanya. Per tant, només cal buscar si existeix un \emph{dead end} i així sabrem si existeix alguna \emph{winning strategy}. A continuació es proposa un pseudo-codi d'un algoritme per resoldre el problema en temps polinòmic:
 
 \begin{algorithm}[H]
-	\caption{Algoritme per calcular la solució de \textsc{geography}}
+	\caption{Algoritme per calcular la solució de \textsc{geography\_repeat}}
 	\begin{algorithmic}[1]
-		\Function{GEOGRAPHY}{$G = (V, E), v, n$}
+		\Function{GEOGRAPHY\_REPEAT}{$G = (V, E), v, n$}
 			\If{$n - 1 \ge |V|$}
 				\State \Return \texttt{"es\_empat"}
-			\ElsIf{$\exists w | (v,w) \in E \ $ \Call{GEOGRAPHY}{$G$, $w$, $n+1$} \texttt{== "es\_guanyador"}}
+			\ElsIf{$\exists w | (v,w) \in E \ $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_guanyador"}}
 				\State \Return \texttt{"es\_perdedor"}
-			\ElsIf{$\exists w| (v, w) \in E \ $ \Call{GEOGRAPHY}{$G$, $w$, $n+1$} \texttt{== "es\_empat"}}
+			\ElsIf{$\exists w| (v, w) \in E \ $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_empat"}}
 				\State \Return \texttt{"es\_empat"}
 			\Else
 				\State \Return \texttt{"es\_guanyador"}
