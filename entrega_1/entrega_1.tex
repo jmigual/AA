@@ -44,14 +44,14 @@ geography.}
 \emph{Show that \textsc{geography} is in \texttt{PSPACE}. (In fact \textsc{geography} is a well known \texttt{PSPACE-complete}
 problem).}
 
-La següent implementació de GEOGRAPHY resol el problema utilitzant una representació del graf G de mida O(|V|+|E|) i un vector de mida O(|V|). És lineal en espai i per tant pertany a PSPACE.
+El següent algoritme resol el problema GEOGRAPHY. Les variables que utilitza són $G$, $v$ i $w$. $G$ té mida $O(|V|+|E|)$ i $v$ i $w$ tenen mida constant. L'alçada de l'arbre de crides recursives generades per l'algoritme està acotada superiorment per $|V|$, i per tant, suposant una implementació (no molt eficient) de l'algoritme en què en cada crida recursiva es genera una còpia del graf que es destrueix a l'acabar la crida, l'espai usat per l'algoritme seria $O(|V|(|V|+|E|))$.
 
 \begin{algorithm}[H]
 	\caption{Algoritme per calcular la solució de \textsc{geography}}
 	\begin{algorithmic}[1]
 		\State // Retorna cert si $v$ és un vèrtex guanyador
 		\Function{GEOGRAPHY}{$G = (V, E), v$}
-			\State \Return $\forall w | (v,w) \in E \ \neg$ \Call{GEOGRAPHY}{$G - v$, $w$}
+			\State \Return $\forall w | (v,w) \in E : \ \neg$ \Call{GEOGRAPHY}{$G - v$, $w$}
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
