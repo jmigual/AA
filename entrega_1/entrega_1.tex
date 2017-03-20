@@ -60,9 +60,9 @@ El següent algoritme resol el problema GEOGRAPHY. Les variables que utilitza s�
 \section{Problema 15: Geography game with repeat visits}
 \emph{Suppose we play geography without the restriction that we can only visit each vertex once. However, the graph is still directed, and you lose if you find yourself at a vertex with no outgoing edges. Show that the problem of telling whether the first player has a winning strategy in this case is in P. (Notice that if a node is reached after a number of turns greater than $n − 1$, then, for sure there is a draw).}
 
-El següent algorisme és semblant a la del problema 14 però amb algunes diferències. Primer de tot, si es troba un cicle llavors hi ha la possibilitat d'empat. El fet que hi puguin haver empats també canvia la definició recursiva, ja que s'ha d tenir en compte que un jugador intentarà guanyar, i si no pot, intentarà empatar.
+El següent algorisme és semblant a la del problema 14 però amb algunes diferències. Si es troba un cicle llavors hi ha la possibilitat d'empat. Per convenció, decidim que el problema Geography el que vol buscar és opcions guanyadores, i que per tant no vol trobar empats. Per això, quan trobem un cicle farem que el guanyador sigui el jugador que no ha iniciat l'algoritme (i per tant dependrà de si n és parella o senar).
 
-Per convenció, decidim que el problema Geography el que vol buscar és opcions guanyadores, i que per tant no vol trobar empats. Per això, quan trobem un cicle farem que el guanyador sigui el jugador que no ha iniciat l'algoritme (i per tant dependrà de si n és parella o senar).
+Una altra diferència és que degut al fet que no hi ha repeticions, visitar un mateix node no depèn del camí seguit per arribar-hi i per tant es pot solucionar el problema amb programació dinàmica.
 
 Noti's que la crida inicial de l'algorisme seria amb $d=0$.
 
@@ -84,6 +84,9 @@ Noti's que la crida inicial de l'algorisme seria amb $d=0$.
 	\end{algorithmic}
 \end{algorithm}
 
-Com que el graf no canvia, l'algorisme es podria implementar utilitzant programació dinàmica, guardant-nos el resultat per a cada node del graf. Per tant com a màxim es faran $|V|$ crides a l'algorisme i en conseqüència el problema pertany a $P$.
+\subsection{Anàlisi del cost de l'algoritme 2}
+El primer \emph{if} (línies 4 a 6) té un cost constant. El segon \emph{if} (línies 7 a 9) fa un màxim de $n$ crides recursives, i pot arribar a ser cridat un màxim de $n^2$ vegades en total, ja que la condició d'entrada és que certa posició de la matriu tingui el valor desconegut ('?') i a l'acabar l'\emph{if} se li assigna el valor $0$ o $1$.
+
+Així doncs, l'algoritme pertany a $O(n^3)$ i per tant és polinòmic.
 
 \end{document}
