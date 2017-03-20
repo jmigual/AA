@@ -70,15 +70,14 @@ Noti's que la crida inicial de l'algorisme seria amb $d=0$.
 	\caption{Algoritme per calcular la solució de \textsc{geography\_repeat}}
 	\begin{algorithmic}[1]
 		\State $G = (V, E)$, amb $n = |V|$
-		\State $W \in \{0,1,$'?'$\}^{n\times (n+1)}$
+		\State $W \in \{0,1,$'?'$\}^{n\times n}$
 
 		\Function{GEOGRAPHY\_REPEAT}{$v, d$}
+			\If{$d > n - 1$}
+				\State \Return $d \mod 2$
+			\EndIf
 			\If{$W(v,d) = $'?'}
-				\If{$d > n - 1$}
-					\State $W(v,d) := d \mod 2$
-				\Else
-					\State $W(v,d) := \forall w | (v,w) \in E : \ \neg$ \Call{GEOGRAPHY\_REPEAT}{$w$, $d+1$}
-				\EndIf
+				\State $W(v,d) := \forall w | (v,w) \in E : \ \neg$ \Call{GEOGRAPHY\_REPEAT}{$w$, $d+1$}
 			\EndIf
 			\State \Return $W(v,d)$
 		\EndFunction
