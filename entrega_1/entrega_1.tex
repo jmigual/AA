@@ -62,21 +62,25 @@ El següent algoritme resol el problema GEOGRAPHY. Les variables que utilitza s�
 
 El següent algorisme és semblant a la del problema 14 però amb algunes diferències. Primer de tot, si es troba un cicle llavors hi ha la possibilitat d'empat. El fet que hi puguin haver empats també canvia la definició recursiva, ja que s'ha d tenir en compte que un jugador intentarà guanyar, i si no pot, intentarà empatar.
 
-Noti's que la crida inicial de l'algorisme seria amb $n=1$.
+Per convenció, decidim que el problema Geography el que vol buscar és opcions guanyadores, i que per tant no vol trobar empats. Per això, quan trobem un cicle farem que el guanyador sigui el jugador que no ha iniciat l'algoritme (i per tant dependrà de si n és parella o senar).
+
+Noti's que la crida inicial de l'algorisme seria amb $d=0$.
 
 \begin{algorithm}[H]
 	\caption{Algoritme per calcular la solució de \textsc{geography\_repeat}}
 	\begin{algorithmic}[1]
-		\Function{GEOGRAPHY\_REPEAT}{$G = (V, E), v, n$}
-			\If{$n \g |V| - 1$}
-				\State \Return \texttt{"es\_empat"}
-			\ElsIf{$\exists w | (v,w) \in E \ : $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_guanyador"}}
-				\State \Return \texttt{"es\_perdedor"}
-			\ElsIf{$\exists w| (v, w) \in E \ : $ \Call{GEOGRAPHY\_REPEAT}{$G$, $w$, $n+1$} \texttt{== "es\_empat"}}
-				\State \Return \texttt{"es\_empat"}
-			\Else
-				\State \Return \texttt{"es\_guanyador"}
+		\State $G = (V, E)$, amb $n = |V|$
+		\State $W \in \{0,1,$'?'$\}^{n\times (n+1)}$
+
+		\Function{GEOGRAPHY\_REPEAT}{$v, d$}
+			\If{$W(v,d) = $'?'}
+				\If{$d > n - 1$}
+					\State $W(v,d) := d \mod 2$
+				\Else
+					\State $W(v,d) := \forall w | (v,w) \in E : \ \neg$ \Call{GEOGRAPHY\_REPEAT}{$w$, $d+1$}
+				\EndIf
 			\EndIf
+			\State \Return $W(v,d)$
 		\EndFunction
 	\end{algorithmic}
 \end{algorithm}
