@@ -1,0 +1,28 @@
+\documentclass[a4paper]{article}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{fontspec}
+\usepackage{amsfonts, amsmath}
+
+\begin{document}
+
+\textbf{Calculeu:}
+
+\begin{itemize}
+	\item $3^{28} \mod 10$
+	
+	$$
+	3^{28} \equiv_{10} (3^{4})^7 \equiv_{10} (3 \cdot (3^{3}))^7 \equiv_{10} 
+	(3 \cdot (27 \mod 10))^7 \equiv_{10} ((3 \cdot 7) \mod 10)^{7} \equiv_{10} 1^7 \equiv_{10} \boldsymbol{1}
+	$$
+	
+	\item $3^{200} \mod 15$
+	
+	$$
+	3^{200} \equiv_{15} (3^4)^{50} \equiv_{15} (3 \cdot (3^3 \mod 10))
+	$$
+\end{itemize}
+
+
+
+\end{document}
