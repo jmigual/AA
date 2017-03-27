@@ -3,26 +3,38 @@
 \usepackage[margin=2cm]{geometry}
 \usepackage{fontspec}
 \usepackage{amsfonts, amsmath}
+\usepackage{cancel}
+
+\def\und#1{\underbrace{#1}}
 
 \begin{document}
 
-\textbf{Calculeu:}
+\begin{enumerate}
+\item \textbf{Calculeu:}
 
 \begin{itemize}
 	\item $3^{28} \mod 10$
-	
 	$$
 	3^{28} \equiv_{10} (3^{4})^7 \equiv_{10} (3 \cdot (3^{3}))^7 \equiv_{10} 
 	(3 \cdot (27 \mod 10))^7 \equiv_{10} ((3 \cdot 7) \mod 10)^{7} \equiv_{10} 1^7 \equiv_{10} \boldsymbol{1}
 	$$
 	
 	\item $3^{200} \mod 15$
-	
-	$$
-	3^{200} \equiv_{15} (3^4)^{50} \equiv_{15} (3 \cdot (3^3 \mod 10))
-	$$
+	\begin{flalign*}
+		3^{200} &\equiv_{15} (3^8)^{25} \equiv_{15} (3^5 \cdot 
+		\und{(3^3 \mod 15)}_{12})^{50} \equiv_{15} 
+		(3^2 \cdot \und{12}_{3 \cdot 4} \cdot \und{(3^3 \mod 15)}_{12})^{25} \equiv_{15} \\
+		& \equiv_{15} (3 \cdot \und{3^3}_{12} \cdot (\cancelto{1}{4^2 \mod 15}))^{25} 
+		\equiv_{15} 
+		(3 \cdot \und{12}_{3 \cdot 4})^{25} \equiv_{15} (3^{10} \cdot 4^5)^5 \equiv_{15} 
+		(3 \cdot 3^3 \cdot 3^3 \cdot 3^3 \cdot \cancelto{1}{4^2} \cdot \cancelto{1}{4^2} 
+		\cdot 4)^{5} \\
+		&\equiv_{15} (3 \cdot 12^3 \cdot 4)^{5} \equiv_{15} 
+		(3 \cdot 3^3 \cdot \cancelto{1}{4^2} \cdot \cancelto{1}{4^2})^5 \equiv_{15}
+		(3 \cdot 12)^5 \equiv_{15} \boldsymbol{6}
+	\end{flalign*}
 \end{itemize}
+\item \textbf{2EXP modular.} Doneu un algorisme de temps polinòmic que amb entrada els enters $a$, $b$, $c$ i un nombre primer $p$ computi $a^{b^c} \mod p$.
 
-
-
+\end{enumerate}
 \end{document}
