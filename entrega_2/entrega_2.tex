@@ -68,5 +68,21 @@ $$
 	\item Considereu l'apartat previ per demostrar que si \textbf{Factorial Modular} fos computable en temps polinòmic, aleshores el problema de \textbf{Factoritzar} també seria computable en temps polinòmic (Recordeu \textbf{Factoritzar}: Donat un nombre enter $x$, calcula els seus factors primers.)
 \end{enumerate} 
 
+\item En un sistema criptogràfic \textbf{RSA} amb $p = 7$ i $q = 11$, troba la clau pública $(N, c)$ i la clau privada $(N, d)$ apropiades.
+\begin{align*}
+	p &= 7 \\
+	q &= 11 \\
+	N &= p \cdot q = 7 \cdot 11 = 77 \\
+	\phi(N) &= (p - 1)(q - 1) = 6 \cdot 10 = 60 \\
+	c &\in \mathbb{Z}_{\phi(60)} \\
+	c &= 7
+\end{align*}
+
+Un cop es troba $c$ cal buscar un $d : c \cdot d \equiv_{60} 1 \implies d = 43$. Així doncs:
+\begin{align*}
+	P &= (60, 7) \\
+	S &= (60, 43)
+\end{align*}
+
 \end{enumerate}
 \end{document}
