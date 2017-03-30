@@ -13,7 +13,13 @@
 
 \def\und#1{\underbrace{#1}}
 
+\title{Problemes  d'aritmètica modular i RSA}
+\author{Marc Asenjo, Arnau Canyadell i Joan Marcè}
+\date{Primavera de 2017}
+
 \begin{document}
+
+\maketitle
 
 \begin{enumerate}
 \item \textbf{Calculeu:}
@@ -65,6 +71,14 @@ $$
 \item \textbf{Factorial Modular} Donats dos enters $x$ i $N$, calcula $x! \mod N$ .
 \begin{enumerate}
 	\item Demostreu que un enter $y$ és primer si i només si per a tot enter $x < y$ es compleix $\gcd(x!, y) = 1$.
+	
+	\begin{align*}
+		y \in \mathbb{P} &\iff \forall x | 1 < x < y : y \bmod{x} = 0 \\
+		y \in \mathbb{P} &\iff \gcd(x!, y) = 1 \iff \gcd((y-1)!, y) = 1 \iff \\
+		&\iff \lnot\exists i | 1 < i < \min((y-1)!, y) : y \bmod{i} = 0 \land \und{(y-1)! \bmod{i} = 0}_{\text{cert } \forall i | 1 < i < y} \iff \\
+		& \iff \forall i | 1 < i < y : y \bmod{i} = 0 \iff y \in \mathbb{P}
+	\end{align*}
+	
 	\item Considereu l'apartat previ per demostrar que si \textbf{Factorial Modular} fos computable en temps polinòmic, aleshores el problema de \textbf{Factoritzar} també seria computable en temps polinòmic (Recordeu \textbf{Factoritzar}: Donat un nombre enter $x$, calcula els seus factors primers.)
 	
 	\begin{algorithm}[H]
@@ -103,7 +117,32 @@ Un cop es troba $c$ cal buscar un $d : c \cdot d \equiv_{60} 1 \implies d = 43$.
 	S &= (60, 43)
 \end{align*}
 
-\item \textbf{Sistema criptogràfic segur?} Suposem que en lloc d'utilitzar un nombre compost $N = pq$ com es fa en el sistema \texttt{RSA}, utilitzem un nombre primer $p$. Per encriptar un missatge $m \mod p$ farem servir un exponent $e$, de la mateixa manera que es fa en el sistema \texttt{RSA}. L'encriptament del missatge $m \mod p$ 
+\item \textbf{Sistema criptogràfic segur?} Suposem que en lloc d'utilitzar un nombre compost $N = pq$ com es fa en el sistema \texttt{RSA}, utilitzem un nombre primer $p$. Per encriptar un missatge $m \mod p$ farem servir un exponent $e$, de la mateixa manera que es fa en el sistema \texttt{RSA}. L'encriptació del missatge $m \mod p$ seria $m^e \mod p$.
+
+Demostreu que aquest nou sistema no és segur donant un algorisme eficient per
+desencriptar. És a dir, doneu un algorisme que, amb entrada $p$, $e$, $m^e mod p$, computi $m mod p$ eficientment. Justifica la correctesa de l'algorisme i analitza el seu temps de computació.
+
+Utilitzant l'algoritme euclidià estès (extended Euclidian algorithm) podem trobar l'invers d'un nombre en aritmètica modular en temps $O(n^3)$. Suposant que aquesta funció es diu \texttt{invers(nombre, mòdul)}, llavors un algoritme que desencriptaria el missatge $m^e$ seria el següent:
+
+\begin{algorithm}[H]
+	\caption{Algorisme desencriptador}
+	\begin{algorithmic}
+		\Function{desencriptar}{$p$, $e$, $m^e \mod p$}
+			\State $d =$ \Call{\textsc{invers}}{$e$, $p-1$}
+			\State \Return $(m^e \mod p)^d \mod p$
+		\EndFunction
+	\end{algorithmic}
+\end{algorithm}
+
+\textbf{Prova de la correctesa de l'algorisme.}
+
+\begin{align*}
+	d := invers(e, p-1) &\pmod{p-1} \\
+	e d = p = 1 &\pmod{p-1} \\
+	(m^e)^d = m^{e d} = m^{k(p-1)+1} = m^{k(p-1)} m = m &\pmod{p}
+\end{align*}
+
+On $k \in \mathbb{Z}_+$
 
 \end{enumerate}
 \end{document}
