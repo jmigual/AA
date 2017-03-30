@@ -65,6 +65,14 @@ $$
 \item \textbf{Factorial Modular} Donats dos enters $x$ i $N$, calcula $x! \mod N$ .
 \begin{enumerate}
 	\item Demostreu que un enter $y$ és primer si i només si per a tot enter $x < y$ es compleix $\gcd(x!, y) = 1$.
+	
+	\begin{align*}
+		y \in \mathbb{P} &\iff \forall x | 1 < x < y : y \bmod{x} = 0 \\
+		y \in \mathbb{P} &\iff \gcd(x!, y) = 1 \iff \gcd((y-1)!, y) = 1 \iff \\
+		&\iff \lnot\exists i | 1 < i < \min((y-1)!, y) : y \bmod{i} = 0 \land \und{(y-1)! \bmod{i} = 0}_{\text{cert } \forall i | 1 < i < y} \iff \\
+		& \iff \forall i | 1 < i < y : y \bmod{i} = 0 \iff y \in \mathbb{P}
+	\end{align*}
+	
 	\item Considereu l'apartat previ per demostrar que si \textbf{Factorial Modular} fos computable en temps polinòmic, aleshores el problema de \textbf{Factoritzar} també seria computable en temps polinòmic (Recordeu \textbf{Factoritzar}: Donat un nombre enter $x$, calcula els seus factors primers.)
 \end{enumerate} 
 
