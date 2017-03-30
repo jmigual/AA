@@ -128,7 +128,7 @@ Utilitzant l'algoritme euclidià estès (extended Euclidian algorithm) podem tro
 	\caption{Algorisme desencriptador}
 	\begin{algorithmic}
 		\Function{desencriptar}{$p$, $e$, $m^e \mod p$}
-			\State $d =$ \Call{\textsc{invers}}{$e$, $p-1$}
+			\State $d :=$ \Call{\textsc{invers}}{$e$, $p-1$}
 			\State \Return $(m^e \mod p)^d \mod p$
 		\EndFunction
 	\end{algorithmic}
