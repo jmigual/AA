@@ -27,24 +27,24 @@
 \begin{itemize}
 	\item $3^{28} \mod 10$
 	$$
-	3^{28} \equiv_{10} (3^{4})^7 \equiv_{10} (3 \cdot (3^{3}))^7 \equiv_{10} 
-	(3 \cdot (27 \mod 10))^7 \equiv_{10} ((3 \cdot 7) \mod 10)^{7} \equiv_{10} 1^7 \equiv_{10} \boldsymbol{1}
+	3^{28} = (3^{4})^7 = (81 \mod 10)^{7} = 1^7 = \boldsymbol{1} \pmod{10}
 	$$
 	
 	\item $3^{200} \mod 15$
-	\begin{flalign*}
-		3^{200} &\equiv_{15} (3^8)^{25} \equiv_{15} (3^5 \cdot 
-		\und{(3^3 \mod 15)}_{12})^{50} \equiv_{15} 
-		(3^2 \cdot \und{12}_{3 \cdot 4} \cdot \und{(3^3 \mod 15)}_{12})^{25} \equiv_{15} \\
-		& \equiv_{15} (3 \cdot \und{3^3}_{12} \cdot (\cancelto{1}{4^2 \mod 15}))^{25} 
-		\equiv_{15} 
-		(3 \cdot \und{12}_{3 \cdot 4})^{25} \equiv_{15} (3^{10} \cdot 4^5)^5 \equiv_{15} 
-		(3 \cdot 3^3 \cdot 3^3 \cdot 3^3 \cdot \cancelto{1}{4^2} \cdot \cancelto{1}{4^2} 
-		\cdot 4)^{5} \\
-		&\equiv_{15} (3 \cdot 12^3 \cdot 4)^{5} \equiv_{15} 
-		(3 \cdot 3^3 \cdot \cancelto{1}{4^2} \cdot \cancelto{1}{4^2})^5 \equiv_{15}
-		(3 \cdot 12)^5 \equiv_{15} \boldsymbol{6}
-	\end{flalign*}
+%	\begin{flalign*}
+%		3^{200} &\equiv_{15} (3^8)^{25} \equiv_{15} (3^5 \cdot 
+%		\und{(3^3 \mod 15)}_{12})^{50} \equiv_{15} 
+%		(3^2 \cdot \und{12}_{3 \cdot 4} \cdot \und{(3^3 \mod 15)}_{12})^{25} \equiv_{15} \\
+%		& \equiv_{15} (3 \cdot \und{3^3}_{12} \cdot (\cancelto{1}{4^2 \mod 15}))^{25} 
+%		\equiv_{15} 
+%		(3 \cdot \und{12}_{3 \cdot 4})^{25} \equiv_{15} (3^{10} \cdot 4^5)^5 \equiv_{15} 
+%		(3 \cdot 3^3 \cdot 3^3 \cdot 3^3 \cdot \cancelto{1}{4^2} \cdot \cancelto{1}{4^2} 
+%		\cdot 4)^{5} \\
+%		&\equiv_{15} (3 \cdot 12^3 \cdot 4)^{5} \equiv_{15} 
+%		(3 \cdot 3^3 \cdot \cancelto{1}{4^2} \cdot \cancelto{1}{4^2})^5 \equiv_{15}
+%		(3 \cdot 12)^5 \equiv_{15} \boldsymbol{6}
+%	\end{flalign*}
+	$$3^{200} = ((3^5)^5)^8 = ((\und{243 \mod 15}_3)^5)^8 = (3^5)^8 = 3^8 = (3^4)^2 = (\und{81 \mod 15}_6)^2= 6^2 = \boldsymbol{6} \pmod{15}$$
 \end{itemize}
 \item \textbf{2EXP modular.} Doneu un algorisme de temps polinòmic que amb entrada els enters $a$, $b$, $c$ i un nombre primer $p$ computi $a^{b^c} \mod p$.
 
