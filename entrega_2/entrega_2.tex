@@ -66,6 +66,25 @@ $$
 \begin{enumerate}
 	\item Demostreu que un enter $y$ és primer si i només si per a tot enter $x < y$ es compleix $\gcd(x!, y) = 1$.
 	\item Considereu l'apartat previ per demostrar que si \textbf{Factorial Modular} fos computable en temps polinòmic, aleshores el problema de \textbf{Factoritzar} també seria computable en temps polinòmic (Recordeu \textbf{Factoritzar}: Donat un nombre enter $x$, calcula els seus factors primers.)
+	
+	\begin{algorithm}[H]
+		\caption{Algoritme per factoritzar a partir de Factorial Modular}
+		\begin{algorithmic}[1]	
+			\State $factors := \{\}$	
+			\Function{Factoritzar}{$x$}
+			\State $x\_fact\_mod = $ \Call{\texttt{Factorial Modular}}{$x-1, x$}
+			\State $gcd = $ \Call{\texttt{Euclid}}{$x\_fact\_mod, x$}
+			\If {$gcd \neq 1$}
+			\State $factors.push (x / gcd)$
+			\State \Call{Factoritzar}{gcd}
+			\EndIf
+			\State \Return
+			\EndFunction		
+		\end{algorithmic}
+	\end{algorithm}
+	
+	Si \textbf{Factorial Modular} fos computable en temps polinòmic, i sabent que l'algoritme d'Euclid per trobar el GCD també ho és, només falta demostrar que la quantitat de repeticions de la recursivitat que s'executaran és també polinòmica. A cada iteració s'extreu un factor de la factorització de x, així que com a molt, si tots els factors són 2, hi haurà $log_2(x) = |x|$ repeticions, que resulten en un cost polinòmic.
+	
 \end{enumerate} 
 
 \item En un sistema criptogràfic \textbf{RSA} amb $p = 7$ i $q = 11$, troba la clau pública $(N, c)$ i la clau privada $(N, d)$ apropiades.
