@@ -1,0 +1,51 @@
+\documentclass[a4paper]{article}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage{fontspec}
+\usepackage[english]{babel}
+
+\usepackage{amsmath, amsfonts}
+
+\setlength{\parindent}{0pt}
+
+\title{Problema 10}
+\author{Arnau Canyadell i Miquel \and Joan Marcè i Igual}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+The \texttt{Set Packing Problem} is defined as follows: Given a family of sets $S_1,...,S_m \subseteq U$ such that, $\forall i \ 1 \le i \le m,\ |S_i|=3$ and has profit $c(S_i)$, find a subset of these sets that maximizes the profit, while each element is covered at most once. Consider a straightforward integer linear programming formulation of the problem:
+
+$$
+\max \sum_{i=1}^m c(S_i)x_i
+$$
+$$
+\sum_{i|u\in S_i} x_i \le 1 \quad \forall u \in U
+$$
+$$
+x_i \in {0, 1} \quad 1 \le i \le m
+$$
+
+Consider the following algorithm that, first computes an optimal solution $x^*$ of the LP obtained by relaxing $x_i \in [0, 1]$, and second performs the following rounding algorithm:
+\begin{enumerate}
+	\item Chose a set $S_i$ to be in the solution with probability $\frac{x_i^*}{6}$
+	\item If an element $u\in U$ is covered by more than one set, remove all the sets in the solution that contain $u$.
+\end{enumerate}
+
+Show that the proposed algorithm is a randomized 12-approximation for \texttt{Set packing}
+
+\textbf{Solution:}
+
+
+\begin{gather*}
+	x_i \in [0,1] \\
+	x_i^* = P(x_{i,opt} = 1) \\
+	P(x_i^1 = 1) = \frac{x_i^*}{6} = \frac{P(x_{i,opt} = 1)}{6} \\
+\end{gather*}
+\begin{gather*}
+	P(x_i = 1) = P(x_i^1 = 1) \cdot P(x_i^2 = 1) = \frac{1}{12}
+\end{gather*}
+
+\end{document}
