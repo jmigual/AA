@@ -38,17 +38,38 @@ Show that the proposed algorithm is a randomized 12-approximation for \texttt{Se
 
 \textbf{Solution:}
 
+Primer de tot, fem les definicions següents:
 \begin{gather*}
-	
+	C_i := c(S_i) \\
+	W := \sum_{i=1}^{m} C_i x_i \\
+	opt := \sum_{i=1}^{m} C_i x_{i,opt} \\
+	X_i': \text{v.a. indicadora de $x_i$ just després del primer pas de la relaxació} \\
+	X_i'': \text{v.a. indicadora de $x_i$ després del segon pas de la relaxació}
 \end{gather*}
 
+De la resolució del problema relaxat $(x_i \in [0,1])$, obtenim:
 \begin{gather*}
-	x_i \in [0,1] \\
 	x_i^* = P[x_{i,opt} = 1] \\
-	P[x_i^1 = 1] = \frac{x_i^*}{6} = \frac{P[x_{i,opt} = 1]}{6} \\
+	P[X_i' = 1] = \frac{x_i^*}{6} = \frac{P[x_{i,opt} = 1]}{6} \\
 \end{gather*}
+
+Com que el nostre objectiu és demostrar que l'algorisme és una ``12-aproximació aleatoritzada'' del problema, busquem una relació entre l'esperança de $W$ i $opt$. Comencem relacionant l'esperança de $W$ amb la probabilitat de que $X_i'' = 0$.
 \begin{gather*}
-	P[x_i = 1] = P[x_i^1 = 1] \cdot P[x_i^2 = 1] = \frac{1}{12}
+	E[W] = \sum_{i=1}^{m} C_i E[X_i''] = \sum_{i=1}^{m} C_i P[X_i'' = 1] = \sum_{i=1}^{m} C_i (1 - P[X_i'' = 0])
+\end{gather*}
+
+Tot seguit trobem $P[X_i'' = 0]$ en funció de $x_i^*$. La probabilitat que un subconjunt no acabi sent agafat després del segon pas de l'algoritme d'arrodoniment és igual a la probabilitat que no hagi estat agafat en el primer pas més la probabilitat que hagi estat agafat en el primer pas i eliminat en el segon pas (i.e. que existeix un altre subconjunt que també ha estat agafat en el primer pas i comparteix algun element amb el primer subconjunt):
+\begin{gather*}
+	P[X_i'' = 0] = P[X_i'=0] + P[\exists j : X_i'=1 \land X_j'=1 \land (S_i \cap S_j \neq \emptyset)] \\
+	P[X_i'=0] = 1 - P[X_i'=1] = 1 - \frac{x_i^*}{6} = \frac{5}{6} x_i^* \\
+	P[\exists j : X_i'=1 \land X_j'=1 \land (S_i \cap S_j \neq \emptyset)] = P[\exists j : X_i'=1 \land X_j'=1 | (S_i \cap S_j \neq \emptyset)] P[\exists j : S_i \cap S_j \neq \emptyset] \\
+	P[\exists j : X_i'=1 \land X_j'=1 | (S_i \cap S_j \neq \emptyset)] \leq = \frac{x_i^*}{6} \frac{1 - x_i^*}{6} = \frac{1 - x_i^*}{36} \\
+	P[\exists j : S_i \cap S_j \neq \emptyset] \leq 1
+\end{gather*}
+
+Si ajuntem, trobem que:
+\begin{gather*}
+	P[X_i'' = 0] \leq \frac{5}{6} x_i^* + \frac{1 - x_i^*}{36} \cdot 1
 \end{gather*}
 
 \end{document}
