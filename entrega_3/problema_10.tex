@@ -61,15 +61,26 @@ Com que el nostre objectiu és demostrar que l'algorisme és una ``12-aproximaci
 Tot seguit trobem $P[X_i'' = 0]$ en funció de $x_i^*$. La probabilitat que un subconjunt no acabi sent agafat després del segon pas de l'algoritme d'arrodoniment és igual a la probabilitat que no hagi estat agafat en el primer pas més la probabilitat que hagi estat agafat en el primer pas i eliminat en el segon pas (i.e. que existeix un altre subconjunt que també ha estat agafat en el primer pas i comparteix algun element amb el primer subconjunt):
 \begin{gather*}
 	P[X_i'' = 0] = P[X_i'=0] + P[\exists j : X_i'=1 \land X_j'=1 \land (S_i \cap S_j \neq \emptyset)] \\
-	P[X_i'=0] = 1 - P[X_i'=1] = 1 - \frac{x_i^*}{6} = \frac{5}{6} x_i^* \\
-	P[\exists j : X_i'=1 \land X_j'=1 \land (S_i \cap S_j \neq \emptyset)] = P[\exists j : X_i'=1 \land X_j'=1 | (S_i \cap S_j \neq \emptyset)] P[\exists j : S_i \cap S_j \neq \emptyset] \\
-	P[\exists j : X_i'=1 \land X_j'=1 | (S_i \cap S_j \neq \emptyset)] \leq = \frac{x_i^*}{6} \frac{1 - x_i^*}{6} = \frac{1 - x_i^*}{36} \\
-	P[\exists j : S_i \cap S_j \neq \emptyset] \leq 1
+	P[X_i'=0] = 1 - P[X_i'=1] = 1 - \frac{x_i^*}{6} \\
+	P[\exists j : X_i'=1 \land X_j'=1 \land (S_i \cap S_j \neq \emptyset)] = P\left[
+	X_i'=1 \land \bigcup_{S_i \cap S_j \neq \emptyset} X_j'=1
+	\right] \\
+	P[X_i'=1] \cdot P\left[\bigcup_{S_i \cap S_j \neq \emptyset} X_j'=1
+	\right] \le \frac{x_i^*}{6} \cdot \sum_{S_i \cap S_j \neq \emptyset} \frac{x_j^*}{6} \le \frac{x_i^*}{6} \cdot \frac{3}{6} = 
+	\frac{1}{12}x_i^*
 \end{gather*}
 
 Si ajuntem, trobem que:
 \begin{gather*}
-	P[X_i'' = 0] \leq \frac{5}{6} x_i^* + \frac{1 - x_i^*}{36} \cdot 1
+	P[X_i'' = 0] \leq 1 - \frac{1}{6}x_i^*  + \frac{1}{12}x_i^* = 1 - \frac{1}{12}x_i^* \\
+	P[X_i'' = 1] \geq \frac{1}{12} x_i^* = \frac{1}{12} P[x_{i,opt} = 1]
 \end{gather*}
+
+Per tant ara es pot veure que:
+\begin{gather*}
+	E[W] = \sum_{i=1}^m C_iE[X_i''] = \sum_{i=1}^m C_iP[X_i''=1] \geq \frac{1}{12} \sum_{i=1}^m C_i P[x_{i,opt}]
+\end{gather*}
+
+Pel que queda demostrat que aquesta relaxació és una 12-aproximació de \texttt{Set Packing Problem}
 
 \end{document}
