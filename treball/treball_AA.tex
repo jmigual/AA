@@ -9,6 +9,7 @@ citestyle=numeric
 ]{biblatex}
 \usepackage{url}
 
+
 \usepackage{amsmath, amsfonts}
 
 \usepackage{tikz}
@@ -89,6 +90,16 @@ A part també s'han trobat algoritmes que donen un millor rati d'aproximació:
 	\item Algorisme B (versió millorada): té un rati de $4/9$ i té un cost de $O(m^{3/2}n\log^6 n)$. Aquest algorisme funciona segons el mateix principi que A però a més a més millora la primera part on es genera un \emph{cactus triangular} i millorar així el resultat total de l'algoritme. 
 \end{itemize}
 
+\section{Algoritme: Spanning Tree}
+Com hem vist a l'apartat anterior un algoritme que calculi un spanning tree (arbre que connecta tots els vèrtex del Graph) qualsevol es pot considerar una 3-aproximació degut a que el nombre d'arestes que contindrà, $n-1$, serà com a molt 3 cops més petit que l'òptim, degut que el màxim d'arestes que pot contenir un graph planar és de $3n - 3 = 3(n - 1)$. A més a més sabem que un arbre és sempre planar, i per tant la solució trobada per aquest algoritme serà sempre vàlida pel nostre problema. Aquesta solució va ser durant molt de temps la millor aproximació trobada, fins que es van pensar els altres algoritmes comentats.
+Un algoritme possible a seguir és el següent:
+\begin{enumerate}
+	\item Seleccionar una aresta aleatòria de $E$ i afegir-la a $E'$. Afegir també els dos vèrtex de l'aresta a $V'$.
+	\item Seleccionar una nova aresta de $E$ que compleixi que com a mínim un dels seus dos vèrtex no són a $V'$ encara.
+	\item Si $|V'|<n-1$ i encara queden arestes a poder agafar (important en el cas que $G$ no fos connexe) tornar a 2.
+	\item Retornar $G'=(V,E')$ 
+\end{enumerate}
+En el cas que $G$ no fos connexe el resultat obtingut no es pot considerar un spanning tree, ja que pot no passar per tots els vèrtex de $G$, però segueix sent una 3-aproximació de la solució degut que el que ens interessa és el nombre d'arestes i no de vèrtex. 
 \printbibliography
 
 \end{document}
