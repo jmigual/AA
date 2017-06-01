@@ -7,6 +7,7 @@
 backend=biber,
 citestyle=numeric  
 ]{biblatex}
+\usepackage{hyperref}
 \usepackage{url}
 
 
@@ -36,9 +37,7 @@ El problema del \texttt{Maximum planar subgraph} es defineix de la manera següe
 Donat un graf $G=(V,E)$, computar un subgraf planar $G'=(V,E')$ amb el màxim nombre d'arestes.
 
 \subsection{Exemple}
-Un exemple d'instància del problema és el problema donat pel graf $G$, on $G$ és la clique de $|V|=4$.
-
-Donat que $G$ no és un subgraf planar, s'ha d'eliminar com a mínim alguna aresta, com es mostra en la figura següent.
+Un exemple d'instància del problema és el problema donat pel graf $G$, on $G$ és la clique de $|V|=4$. $G$ no és un subgraf planar, però es pot obtenir una solució (un subgraf planar màxim) eliminant una aresta, com es mostra en la figura següent.
 
 \begin{figure}[!h]
 	\centering
@@ -60,6 +59,9 @@ Donat que $G$ no és un subgraf planar, s'ha d'eliminar com a mínim alguna ares
 \end{figure}
 
 \section{Problemes derivats}
+
+En aquest apartat es donen dos exemples de problemes derivats del \texttt{Maximum planar subgraph problem}. Un és un problema decisional i l'altre és un problema parametritzat.
+
 \subsection{Problema decisional: \texttt{Is maximum planar subgraph}}
 Donat un graf $G=(V,E)$ i un subgraf planar de $G$, $G'=(V,E')$, dir si $G'$ és un \texttt{Maximum planar subgraph} de $G$.
 
@@ -77,17 +79,17 @@ El problema del \texttt{Maximum planar subgraph} és un problema NP-complet. Hi 
 
 A part també s'han trobat algoritmes que donen un millor rati d'aproximació:
 \begin{itemize}
-	\item Algorisme A (versió \emph{Greedy}): té un rati de $7/18$ i està basat en produir una estructura triangular i que té cost lineal. Aquest algoritme defineix conceptes:
+	\item Algorisme A (versió \emph{Greedy}): té un rati de $7/18$ i està basat en produir una estructura triangular i que té cost lineal. Aquest algoritme defineix els conceptes següents:
 	\begin{itemize}
 		\item \emph{cactus triangular}: Graf que tots els seus cicles són triangles i totes les arestes apareixen en algun cicle.
 		\item \emph{estructura triangular}: Graf que els seus cicles són triangles.
 	\end{itemize}
 	Així doncs l'algoritme treballa en dues etapes:
 	\begin{enumerate}
-		\item Produir un \emph{cactus triangular} maximal $S_1$ a $G$.
+		\item Produir un \emph{cactus triangular} maximal $S_1$ que sigui un subgraf de $G$.
 		\item Estendre $S_1$ a una \emph{estructura triangular} $S_2$ que es trobi en $G$ afegint tantes arestes a $S_1$ com sigui possible però sense crear nous cicles.
 	\end{enumerate}
-	\item Algorisme B (versió millorada): té un rati de $4/9$ i té un cost de $O(m^{3/2}n\log^6 n)$. Aquest algorisme funciona segons el mateix principi que A però a més a més millora la primera part on es genera un \emph{cactus triangular} i millorar així el resultat total de l'algoritme. 
+	\item Algorisme B (versió millorada): té un rati de $4/9$ i té un cost de $O(m^{3/2}n\log^6 n)$. Aquest algorisme funciona segons el mateix principi que l'algorisme A però a més a més millora la primera part on es genera un \emph{cactus triangular} millorant així el resultat total de l'algoritme. 
 \end{itemize}
 
 \section{Algoritme: Spanning Tree}
