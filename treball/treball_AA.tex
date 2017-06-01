@@ -69,8 +69,6 @@ Donat un graf $G=(V,E)$ i un subgraf planar de $G$, $G'=(V,E')$, dir si $G'$ és
 Donat un graf $G=(V,E)$ i un enter $k$, computar un subgraf planar $G'=(V,E')$ amb $|E'|=k$.
 
 \section{Resultats publicats}
-
-\subsection{Complexitat i aproximació del problema}
 El problema del \texttt{Maximum planar subgraph} és un problema NP-complet. Hi ha diversos algoritmes que donen una 3-aproximació del problema\cite{betterApproximation}:
 \begin{itemize}
 	\item \texttt{Spanning Tree}: Trobar un spanning tree permet obtenir una 3-aproximació de \texttt{Maximum planar subgraph}. Es pot provar que el rati d'aproximació és $1/3$ perquè en un \texttt{spanning tree} amb $n$ vèrtex hi ha $n - 1$ arestes i un graf planar amb $n$ vèrtexs com a molt pot tenir $3n - 3 = 3(n - 1)$ arestes \cite{planar}.
