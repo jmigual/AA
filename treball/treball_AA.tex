@@ -84,7 +84,7 @@ A part també s'han trobat algoritmes que donen un millor rati d'aproximació:
 	\end{itemize}
 	Així doncs l'algoritme treballa en dues etapes:
 	\begin{enumerate}
-		\item Produir un \emph{cactus triangular} maximal $S_1$ a $G$.
+		\item Produir un \emph{cactus triangular} maximal $S_1$ que sigui un subgraf de $G$.
 		\item Estendre $S_1$ a una \emph{estructura triangular} $S_2$ que es trobi en $G$ afegint tantes arestes a $S_1$ com sigui possible però sense crear nous cicles.
 	\end{enumerate}
 	\item Algorisme B (versió millorada): té un rati de $4/9$ i té un cost de $O(m^{3/2}n\log^6 n)$. Aquest algorisme funciona segons el mateix principi que l'algorisme A però a més a més millora la primera part on es genera un \emph{cactus triangular} millorant així el resultat total de l'algoritme. 
