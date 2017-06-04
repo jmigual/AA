@@ -26,9 +26,23 @@ Let us consider the following public-key cryptosystem based on \textsc{Subset Su
 \end{enumerate}
 
 \section*{Solution}
-Let us see that the problem of, given an encrypted message $c$ and a private key $ a$
+Let us see that the problem of, given an encrypted message $c$ and a private key $\langle E = (e_1, ..., e_n), m, w \rangle$, decrypting $c$, can be solved in polynomial time.
 \begin{enumerate}[label=\roman*)]
-	\item 
+	\item Show that $w^{-1}c = EX$.
+\end{enumerate}
+
+\begin{enumerate}[resume, label=\roman*)]
+	\item Prove that the following problem is a polynomial time computable:
+	
+	Given integers $w$ and $m$ satisfying \emph{a)}, and an integer $c$ satisfying \emph{c)}, compute $(w^{-1}c) \pmod{m}$.
+\end{enumerate}
+
+\begin{enumerate}[resume, label=\roman*)]
+	\item Show that \textsc{Subset Sum} can be solved in polynomial time if the input sequence of integers is superincreasing. Recall that \textsc{Subset Sum} is defined by:
+	
+	Given a sequence of integers $e_1, ..., e_n$, and a target integer $W$, compute $X = \{0, 1\}^n$ such that $W = EX$ where $E = (e_1, ..., e_n)$. (\emph{Hint}: be greedy).
+	
+	Hence, given the superincreasing sequence $E$ and $W = (w^{-1}c) \pmod{m}$, we can compute the decrypted original message $X$ in polynomial time.
 \end{enumerate}
 
 
