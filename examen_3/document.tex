@@ -36,6 +36,11 @@ Let us see that the problem of, given an encrypted message $c$ and a private key
 	
 	Given integers $w$ and $m$ satisfying \emph{a)}, and an integer $c$ satisfying \emph{c)}, compute $(w^{-1}c) \pmod{m}$.
 \end{enumerate}
+Taking into account that $(w^{-1}c)=_m(w^{-1}\mod{m})·(c \mod{m})$, we know we can compute $w^{-1}\mod{m}$ in $O(n^3)$ using the Extended Euclid algorithm:
+
+ \textbf{EXT-EUCLID}(w,m) returns (d,x,y) where $d=GCD(w,m)=wx + my=1$ because we know $w$ and $m$ are relatively prime. Working in modular arithmetic $my=_m0$, so $wx=_m 1$, and as a result $x=_m w^{-1}$.
+ 
+ Being $c$ a number, computing $c \mod{N}$ is also polynomial, and afterwards the only step left is to compute the product of the two results previously obtained and apply the module one last time in $(w^{-1}c) \pmod{m}$, which are two polynomial operations too. AND WE ARE DONE.
 
 \begin{enumerate}[resume, label=\roman*)]
 	\item Show that \textsc{Subset Sum} can be solved in polynomial time if the input sequence of integers is superincreasing. Recall that \textsc{Subset Sum} is defined by:
