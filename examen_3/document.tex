@@ -1,0 +1,36 @@
+\documentclass[a4paper]{article}
+
+\usepackage[margin=3cm]{geometry}
+\usepackage{fontspec}
+\usepackage{amsmath, amsfonts}
+\usepackage{enumitem}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+\def\arraystretch{1.5}
+
+\title{A public-key criptosystem}
+
+\begin{document}
+\maketitle
+\section*{Statement}
+Let us consider the following public-key cryptosystem based on \textsc{Subset Sum}:
+
+\begin{enumerate}[label=\alph*)]
+	\item The \emph{private key} consists of a \emph{superincreasing} sequence $E = (e_1, ..., e_n)$ of integers, an integer $m$ greater that the sum of all the elements $e_1, ..., e_n$ and an integer $w$ that is relatively prime to $m$. (A sequence $e_1, ..., e_n$ is called \emph{superincreasing} if each element $e_i$ is strictly greater than the sum of all previous elements).
+	\item The \emph{public key} is a sequence $H = (h_1, ..., h_n)$ derived from the private key via $h_i = (we_i) \pmod{m}$.
+	\item The encryption of an $n$-bit message $X = (x_1, ..., x_n)$ is the number $c = HX = \sum_{i=1}^n h_ix_i$.
+	\item Decrypting the message amounts to solving $c = HX$ for $X \in \{0, 1\}^n$, which is of course equivalent to solving \textsc{Subset Sum} for H with target sum $c$. The owner of the private key, however, can simplify the decryption considerably by calculating $w^{-1}c \equiv_m EX$.
+	
+	(Now the condition $m > \sum_{i=1}^n e_i$ allows us to replace '$\equiv_m$' by '$=$')
+\end{enumerate}
+
+\section*{Solution}
+Let us see that the problem of, given an encrypted message $c$ and a private key $ a$
+\begin{enumerate}[label=\roman*)]
+	\item 
+\end{enumerate}
+
+
+
+\end{document}
