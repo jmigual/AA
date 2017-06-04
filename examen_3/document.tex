@@ -40,6 +40,11 @@ Let us see that the problem of, given an encrypted message $c$ and a private key
 \begin{enumerate}[label=\roman*)]
 	\item Show that $w^{-1}c = EX$.
 \end{enumerate}
+We want to prove that $w^{-1}c = EX$ so, using all the previous definitions:
+\begin{gather*}
+	w^{-1}c = EX \pmod{m} \iff w^{-1}c = EX \iff w^{-1}c = \sum_{i=1}^{n} e_i x_i \iff \\
+	\iff w^{-1} \sum_{i=1}^n h_i x_i = \sum_{i=1}^n e_i x_i \iff \sum_{i=1}^n \underbrace{w^{-1}w}_1 e_i x_i = \sum_{i=1}^n e_i x_i
+\end{gather*}
 
 \begin{enumerate}[resume, label=\roman*)]
 	\item Prove that the following problem is a polynomial time computable:
