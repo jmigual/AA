@@ -4,12 +4,22 @@
 \usepackage{fontspec}
 \usepackage{amsmath, amsfonts}
 \usepackage{enumitem}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{0.5em}
 \def\arraystretch{1.5}
 
+\algnewcommand\algorithmicinput{\textbf{Input:}}
+\algnewcommand\INPUT{\item[\algorithmicinput]}
+\algnewcommand\algorithmicoutput{\textbf{Output:}}
+\algnewcommand\OUTPUT{\item[\algorithmicoutput]}	
+
 \title{A public-key criptosystem}
+\author{Arnau, Joan \& Marc  <3}
 
 \begin{document}
 \maketitle
@@ -45,6 +55,32 @@ Let us see that the problem of, given an encrypted message $c$ and a private key
 	Hence, given the superincreasing sequence $E$ and $W = (w^{-1}c) \pmod{m}$, we can compute the decrypted original message $X$ in polynomial time.
 \end{enumerate}
 
+The following greedy algorithm solves the problem in linear time.
 
+\begin{algorithm}[H]
+	\caption{\textsc{Subset Sum} with superincreasing list}
+%	\KwData{}
+%	\KwResult{  }
+\begin{algorithmic}
+	\INPUT $E= (e_1, ... , e_n), W $
+	\OUTPUT $ X = \{0,1\}^n $ such that $W=EX$
+	\State \Comment Each variable $x_j$ is boolean in spirit: it indicates if you include $e_j$ in the sum or not.
+	\State $s := 0$ \Comment Sum variable
+	\State $j := n$ \Comment Index variable
+	\While{$ j>0 $ \and $ s<W $}
+		\If{$ s + e_j \leq W $} \Comment Ifincluding  $e_j$ will not create overflow, we include it.
+			\State $s := s + e_j$
+			\State $x_j := 1$
+		\Else
+			\State $x_j := 0$
+		\EndIf
+		$ j := j-1 $
+	\EndWhile
+\end{algorithmic}
+\end{algorithm}
+
+Reference: algorithm explained here \rightarrow \url{https://math.stackexchange.com/questions/378148/greedy-optimized-subset-sum-problem}.
+
+This is a greedy algorithm that solves the \textsc{Subset Sum} problem without guaranteeing an optimal solution (assuming that $E$ is still an ordered sequence). However, if the input list is superincreasing, the optimal is guaranteed.
 
 \end{document}
