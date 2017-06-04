@@ -19,7 +19,7 @@
 \algnewcommand\OUTPUT{\item[\algorithmicoutput]}	
 
 \title{A public-key criptosystem}
-\author{Arnau, Joan \& Marc  <3}
+\author{Arnau \and Joan \and Marc}
 
 \begin{document}
 \maketitle
@@ -51,7 +51,7 @@ We want to prove that $w^{-1}c = EX$ so, using all the previous definitions:
 	
 	Given integers $w$ and $m$ satisfying \emph{a)}, and an integer $c$ satisfying \emph{c)}, compute $(w^{-1}c) \pmod{m}$.
 \end{enumerate}
-Taking into account that $(w^{-1}c)=_m(w^{-1}\mod{m})·(c \mod{m})$, we know we can compute $w^{-1}\mod{m}$ in $O(n^3)$ using the Extended Euclid algorithm:
+Taking into account that $(w^{-1}c)\equiv_m(w^{-1}\mod{m})·(c \mod{m})$, we know we can compute $w^{-1}\mod{m}$ in $O(n^3)$ using the Extended Euclid algorithm:
 
  \textbf{EXT-EUCLID}(w,m) returns (d,x,y) where $d=GCD(w,m)=wx + my=1$ because we know $w$ and $m$ are relatively prime. Working in modular arithmetic $my=_m0$, so $wx=_m 1$, and as a result $x=_m w^{-1}$.
  
@@ -84,7 +84,7 @@ The following greedy algorithm solves the problem in linear time.
 		\Else
 			\State $x_j := 0$
 		\EndIf
-		$ j := j-1 $
+		\State $ j := j-1 $
 	\EndWhile
 \end{algorithmic}
 \end{algorithm}
